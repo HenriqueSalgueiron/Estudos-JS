@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 10</title>
+    <style>
+        div#area {
+            font: normal 20pt Arial;
+            background: brown;  
+            color: white;
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="area"> 
+        Interaja...
+    </div>
+
+    <script>
+        // Adicionar o Event Listener para tirar os métodos de dentro do html
+        var Conteudo = document.querySelector('div#area')
+        Conteudo.addEventListener('click', clicar)
+        Conteudo.addEventListener('mouseenter', entrar)
+        Conteudo.addEventListener('mouseout', sair)
+        // Com o event listener, fica pronto para disparar a função sempre que ocorrer x evento no meu elemento x (no caso, a div Conteudo)
+        function clicar() {
+            var Conteudo = document.querySelector('div#area')
+            Conteudo.innerText = 'Clicou!'
+            Conteudo.style.background = 'red'
+        }
+
+        function entrar() {
+            var Conteudo = document.querySelector('div#area')
+            Conteudo.innerText = 'Entrou!'
+            Conteudo.style.background = 'green'
+                    }
+        
+        function  sair() {
+            var Conteudo = document.querySelector('div#area')
+            Conteudo.innerText = 'Saiu!'
+            Conteudo.style.background = 'blue'
+        }
+    </script>
+</body>
+</html>

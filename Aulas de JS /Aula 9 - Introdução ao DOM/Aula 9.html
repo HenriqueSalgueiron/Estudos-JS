@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body { 
+            background-color: brown;
+            color: rgb(255, 255, 254);
+            font: normal 15pt Arial;
+            }
+
+    </style>
+
+</head>
+<body>
+    <h1>Primeiros testes com o DOM</h1>
+    <p>Aqui vai o resultado!</p>
+    <p>Frase bonitinha utilizando <strong>negrito</strong> para destacar palavra</p>
+    
+    <div id="msg">Clique em mim</div>
+    
+    <script>
+
+        var p1 = window.document.getElementsByTagName('p')[1] // Selecionar elemento por Name. Coloca: ('nome do elemento')[índice do elemento]
+        window.document.write('Olá, mundo!<br/>' + window.document.URL) // Este ".URL" retorna a URL da janela
+        window.document.write('<br/>Está escrito: ' + p1.innerHTML) // Este "p1.innerHTML" retorna o HTML contido na variável p1
+        
+        var corpo = window.document.body // Cria uma variável para acessar o body do document
+        //corpo.style.background = 'black' --> Utilizando a variável para modificar a cor do background do body
+        
+        var divisao = window.document.getElementById('msg') // Selecionar um elemento por ID
+        divisao.style.background = 'red' // Alterando a cor do background da minha div (elemento de id 'msg')
+        window.alert(divisao.innerText) // Atenção no ".innetText", para que seja exibido o TEXTO do elemento 'msg'
+
+        var testequery = window.document.querySelector('div#msg') // Selecionar um elemento utilizando o querySelector e atribuir a uma variavel seu conteúdo
+        testequery.style.background = 'blue' // Alterando cor do background da div (elemento de id 'msg')
+        window.prompt(testequery.innerText) // Exibindo um pop up com o conteúdo do elemento
+        
+    </script>
+</body>
+</html>

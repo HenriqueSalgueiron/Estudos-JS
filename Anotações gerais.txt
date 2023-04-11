@@ -1,0 +1,316 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+AULA 4:
+
+escrever "html" e selecionar "html:5" para obter um esqueleto. Consultar detalhes no "Aula 4_Primeiro HTML.html"
+
+alguns comandos: 
+
+window.alert('Minha primeira mensagem!') // Pop up com uma mensagem de alerta
+window.confirm('Está gostando de estudar?') // Janela com OK ou Cancelar
+window.prompt('Qual o seu nome?') // Campo aberto que recebe uma mensagem
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aula 5:
+
+Nome da variável = "Identificadores"
+
+1) Podem começar com letra, $ ou _
+2) Não pode começar com número
+3) É possível usar letras ou números
+4) É possível usar acentos e símbolos
+5) Não pode conter espaço
+6) Não podem ser palavras reservadas (palavras que o JS utiliza)
+
+Dicas para declarar variáveis: 
+
+1) Maiúsculas e minúsculas fazem diferença
+2) Tente escolher nomes coerentes para as variáveis
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aula 6: 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aula 7 e 8:
+
+Operadores Aritméticos
+
+5 + 2 = 7
+5 - 2 = 3
+5 * 2 = 10
+5 / 2 = 2.5
+5 % 2 = 1
+5 ** 2 = 25
+
+X += 2    ==   x = x + 2
+X -= 2    ==   x = x - 2
+X *= 2    ==   x = x * 2
+X /= 2    ==   x = x / 2
+X %= 2    ==   x = x % 2
+X **= 2    ==   x = x ** 2
+
+X++       == X+1
+X--       == X-1
+
+
+Relacionais
+
+> maior que
+< menor que
+>= maior ou igual
+<= menor ou igual
+== igual 
+!= diferente
+
+    obs: resultados boleanos (true ou false)
+
+Identidade
+
+5 == 5     -> true
+5 == '5'   -> true / O sinal de igualdade do JS não testa o tipo, apenas a grandeza. por isso é igual
+5 === '5'  -> false / "Igualdade restrita", testa se eles são identicos (valor e tipo)
+
+Lógicos
+
+! negação
+&& conjunção (e)
+|| disjunção (ou)
+
+Ternário
+
+(teste)?(se true):(se false)
+
+exemplo: média >= 7.0 ? "Aprovado" : "Reprovado"
+traduzindo: se a média for maior ou igual a 7, aparecerá aprovado. senão, aparecerá reprovado
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+Aula 9
+
+DOM: Document Object Model 
+
+Definição: 
+
+    Conjunto de objetos dentro do navegador que darão acesso aos componentes do website.
+O DOM não está dentro do Node.js, está no navegador. Por isso fazemos um "site".
+
+Árvore DOM:
+
+    Árvore DOM do site vai da raíz (chamada de "window". Tudo dentro do JS está em um objeto chamado window. Window é um objeto DOM. Que é a janela do navegador)
+    
+    Dentro do Window existem outros objetos, sendo exemplos:
+        Location: Diz a localização do site (URL)
+        Document: Documento atual
+        History: Guarda de onde você veio, para onde você vai
+    Dentro do Document existe outro objeto, chamado html (parte html do site)
+    Dentro do html temos 2 objetos (child): head e body / nessa relação, html é um parent (pai) de body e head
+    Seguindo no exemplo do arquivo Aula 9.html, dentro de head temos meta e title.
+    Já dentro do body, temos h1, 2 parágrafos e uma div.
+    Dentro de um dos parágrafos, temos um strong
+
+Navegando pela árvore DOM
+
+    5 exemplos de método de seleção de elementos:
+
+    Por Marca: Em window: Em document: getElementsByTagName()[]
+    Por ID: Em window: Em document: getElementById()
+    Por Nome: Em window:  Em document: getElementsByName()[]
+    Por Classe: Em window: Em document: getElementsByClassName()[]
+    Por Seletor: O mais recomendável! (querySelector() ou querySelectorAll())
+        Em window:  Em document: 
+            querySelector('div#IdDaDiv'), para ID
+            querySelector('div.IdDaClasse'), para Classe
+
+    Sabendo como navegar pelos elementos, podemos declarar variáveis de acesso aos elementos e, através de scripts, utilizar ou modificar os elementos.
+    Exemplo:    
+        1) Atribuir um ID à div com: <div id="IdDoElemento"> <div/>
+        2) Declarar variavel para acesso: var divisao = window.document.getElementById('IdDoElemento')
+        3) Fazer mudança ou resgate: divisao.style.background = 'black' / window.alert(divisao.innerText) / divisao.innerText = 'Texto para o qual desejo alterar ou atribuir'
+    Exemplo 2, utilizando o método de navegação por Seletor:
+        1) Atribuir um ID ou classe à div com: <div id="IdDaDiv"> ou <div class="ClasseDaDiv">
+        2) Declarar uma variavel para acesso: var abc = window.document.querySelector('div#IdDaDiv'), quando navegando por ID
+                                              var abc = window.document.querySelector('div.ClasseDaDiv'), quando navegando por classe.
+        3) Fazer mudança ou resgate: abc.style.background = 'black' / window.alert(abc.innerText) / abc.innerText = 'Texto para o qual desejo alterar ou atribuir'
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aula 10
+
+Evento DOM: 
+
+    Eventos podem ser configurados no html ou diretamente no js
+        html: 
+            <div id="x" evento1="func1()" evento2="func2()" evento3="func3()"> alguma texto <div/>
+
+        js: 
+            var a = document.querySelector('div#x')
+            a.addEventListener('event1', func1()) // Está adicionando o event1 na div x, o qual disparará a func1
+            A.addEventListener('event2', func2()) // Está adicionando o evento2 na div x, o qual disparará a func2
+
+        após configurado o evento, configurar a função:
+            function func1() {
+               var b = querySelector('div#x')
+               b.style.background = 'red'     
+            }
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aula 11
+
+Condicao simples:
+
+if () {
+    true
+}
+
+Condição comum: 
+
+if () {
+    true
+} else {
+    false
+} 
+
+Consição else if:
+
+if() {
+    true
+} else if{ 
+    true
+} else {
+    false
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+Aula 12:
+
+switch (expressão) {
+    case valor1:
+    
+    break
+
+    case valor2:
+
+    break
+
+    default:
+
+    break
+}
+
+Conectando ao meu HTML arquivos a parte de CSS e JS:
+
+CSS: Dentro da Head, escrever "link:css" e, em "href", adicionar o nome do arquivo de CSS.
+JS: Dentro do Body, escrever "script:src" e, em "src", adicionar o nome do arquivo de JS.
+Obs.: Os arquivos que serão utilizados deverão estar na mesma pasta que o arquivo HTML.
+
+
+! Criar objeto de imagem: <img... >; "src" será o nome do arquivo que será exibido
+
+! Novo imput: radio
+    Utilizado para criar uma bolinha de seleçã0 (ex. em "Idade e gênero")
+    Para criar multipla escolha, nomear os rads com o mesmo nome.
+    Posteriormante, no JS, quando for atribuir o objeto a uma variável, utilizar o GetElementsByName('').
+    No momento de criar uma condição, caso seja criada, utilizar esta estrutura:
+        if (rad[0].checked) {  // "rad" = identificador da variável
+
+        }
+
+! Criação de um Elemento via JS (ao invés de ir no HTML e inserir):
+    var algumnome = document.createElement('tipo de obj') // Neste momento, estamos criando um objeto e atribuindo-o à variável "algumnome"
+
+! Inserindo o objeto criado em determinado "local" do HTML:
+    outronome.appendChild(algumnome) // "outronome" é onde vamos inserir o objeto criado "algumnome"). normalmente uma div.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aula 13 e 14:
+
+While
+
+    Estrutura de repetição com teste lógico no início:
+
+        while (condição) {                  primeiro testa a condição, depois executa.
+        ação
+        }
+
+
+    Estrutura de repetição com teste lógico no final:
+
+        do {                                primeira executa a ação, depois testa a condição.
+        ação
+        } while (condição)
+
+For
+
+    for (início; teste; incremento) {       parte da afirmação feita em "início", testando "teste"
+        ação                                realiza a ação
+    }                                       feita a ação, realiza o incremento 
+
+Adicionar Emoji
+
+    site: https://unicode.org/emoji/charts/full-emoji-list.html
+    estrutura: \u{código numérico}    obs: vai vir U+código, só adaptar  
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+Aula 15:
+
+Array
+    
+    var identificador = [elemento1, elemento2, elemento3...] -> Índice 0 -> 1 -> 2 
+
+Métodos
+
+    identificador.sort(): ordenar elementos por valor
+    identificador.push(x): insere o elemento x no array
+    identificador[y] = x: insere o elemento x na posição y
+    identificador.indexOf(x): retorna a posição em que o elemento x se encontra no vetor
+    identificador.push(): remove o elemento do fim do array
+    identificador.shift(): remove o elemento do começo do array 
+    identificador.splice(início, removecount, novoItem, novoItem...): editar e criar novos arrays:
+        primeiro parâmetro/argumento: índice a partir do qual iniciará o fatiamento/remoção de elementos 
+        segundo parãmetro/argumento: número de elementos que serão removidos 
+            obs: caso não informado o removeCount, serão removidos todos os elementos a partir do índice indicado.
+        terceiro parâmetro/argumento em diante: novos itens que serão adicionados
+        ex: 
+            let meses = ["Janeiro", "Fevereiro", "Segunda", "Terça"];
+            meses.splice(2, 0, "Março");
+            console.log(meses); 
+            // ["Janeiro", "Fevereiro", "Março", "Segunda", "Terça"]
+        
+        
+
+
+
+For simplificado:
+    
+    for (var pos in identificador) {               // "Para cada posição no array, imprima": Imprime de um em um
+        console.log(identificador[pos])
+    }
+
+    Equivalente a: for (pos = 0; pos < identificador.length; pos++) {
+        console.log(identificador[pos])
+    }
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+Gerenciamento de memória
+
+    1.Tipos primitivos sempre são passados como um valor (cópia)
+        string, number, boolean, null, undefined, symbol
+        variáveis declaradas armazenam o VALOR informado.
+    2.Tipos não-primitivos são passados como uma referência 
+        array, object... etc
+        variáveis declaradas armazenam o ENDEREÇO fornecido. 
+
+Assessores SET e GET
+    Set: 
+        Usando assessores do tipo set podemos alterar a regra de como um atributo pode ou não ser modificado 
+        sem precisar alterar isso em diversos pontos do código.
+        Usar assessores do tipo set é uma boa prática para garantirmos que a atribuição de propriedades está
+        sempre segura.
+
+    Get:
+        Utilizado para definir como obter informação do objeto
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------

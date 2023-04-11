@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocimetro</title>
+</head>
+<body>
+
+    <h1>Teste de velocidade!</h1>
+    <h2>Digite a velocidade:</h2>
+    <input type="number" name="nome" id="digitar">
+    <input type="button" value="Analisar" name="botao" id="botao"> 
+    
+    <div id="resultado"></div>
+
+    <script>
+      
+        var result = document.querySelector('div#resultado')    
+        var botao = document.querySelector('input#botao')
+        botao.addEventListener('click', analisar)
+
+        function analisar() {
+            
+            var velocidade = document.querySelector('input#digitar')
+            var vel = velocidade.value
+            console.log(vel)
+            
+
+            if (vel > 90) {
+                result.innerHTML = 'Multado'
+            }  else {
+                result.innerHTML = 'Tudo joia'
+            }
+        }
+
+      /* function analisar() {
+
+            if (velocidade > 90) {
+                resultado.innerText = 'Muito bem!'
+            }
+        } 
+*/
+    </script>
+</body>
+</html>

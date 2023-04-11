@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 10</title>
+    <style>
+        div#area {
+            font: normal 20pt Arial;
+            background: brown;  
+            color: white;
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="area" onclick="clicar()" onmouseenter="entrar()" onmouseout="sair()"> <!-- Lendo: Quando eu clicar em cima da div, vai disparar o "clicar"  -->
+        Interaja...
+    </div>
+
+    <script>
+        
+        function clicar() {
+            var Conteudo = document.querySelector('div#area')
+            Conteudo.innerText = 'Clicou!'
+            Conteudo.style.background = 'red'
+        }
+
+        function entrar() {
+            var Conteudo = document.querySelector('div#area')
+            Conteudo.innerText = 'Entrou!'
+            Conteudo.style.background = 'green'
+                    }
+        
+        function  sair() {
+            var Conteudo = document.querySelector('div#area')
+            Conteudo.innerText = 'Saiu!'
+            Conteudo.style.background = 'blue'
+        }
+    </script>
+</body>
+</html>

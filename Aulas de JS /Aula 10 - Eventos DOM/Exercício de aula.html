@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Interativo</title>
+    <style>
+        div#resultado {
+            border: 2px solid #000000;
+            width: 300px;
+            font-size: 17px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Somando Valores</h1>
+
+    <input type="number" name="txtn1" id="txtn1">
+    <input type="number" name="txtn2" id="txtn2">
+    <input type="button" value="Somar" onclick="somar()">
+
+    <!-- <input type="number" name="Resultado" id="soma">  / Posso criar uma caixa assim para inserir o resultado da soma posteriormente? -->
+
+    <h2>Resultado:</h2> 
+    <div id="resultado"></div>
+
+    <script>
+
+        function somar() {
+            var n1 = Number((window.document.querySelector('input#txtn1')).value)
+            var n2 = Number((window.document.querySelector('input#txtn2')).value)
+            var soma = n1 + n2
+            
+            var TextoResultado = document.querySelector('div#resultado')
+            TextoResultado.innerHTML = `A soma entre ${n1} e ${n2} é <strong>${soma} <strong/>`
+        /*    var resultado = window.document.querySelector('input#soma') 
+            resultado.innerHTML = soma 
+
+                trocar o innerHTML para .value + implementar id (atributo)
+
+        */
+        }
+       
+    </script>
+
+</body>
+</html> 
