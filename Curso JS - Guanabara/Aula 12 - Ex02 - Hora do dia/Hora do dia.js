@@ -15,7 +15,6 @@ if (Hora > 5 && Hora < 12) {
     saudacao.innerText = 'Boa tarde!'
     imagem.src = 'boatarde.jpg'
     document.body.style.background = '#f6773d'
-
 } else {
     document.body.style.background = '#2c6fa3'
     saudacao.innerText = 'Boa noite!'
