@@ -35,7 +35,7 @@ Dicas para declarar variáveis:
     5 % 2 = 1
     5 ** 2 = 25
 
-    X += 2    ==   x = x + 2
+    X   2    ==   x = x + 2
     X -= 2    ==   x = x - 2
     X *= 2    ==   x = x * 2
     X /= 2    ==   x = x / 2
@@ -67,7 +67,7 @@ Dicas para declarar variáveis:
     == igual
     != diferente
 
-    obs: resultados boleanos (true ou false)
+     obs: resultados boleanos (true ou false)
 
 `Identidade: `
 
@@ -315,33 +315,38 @@ Utilizado para definir como obter informação do objeto
 
 # ARROW FUNCTIONS
 
-    Sintaxe:
+Sintaxe:
 
-    	const funcSoma = (a, b) => {
-    		return a + b;
-    	}
+	const funcSoma = (a, b) => {
+		return a + b;
+	}
 
-    Sendo:
+	ou
 
-    	funcSoma: nome da função
-    	(a, b): parâmetros que a função recebe
-    	{ ... }: operação que será executada
+	const funcSoma = (a,b) => a + b;
 
-    ex:
+Sendo:
 
-    	let roupas = [
-    		{ produto: 'camisa', preço: 25. cor: 'amarela'},
-    		{ produto: 'calça', preço: 80, cor: 'azul'},
-    		{ produto: 'jaqueta', preço: 100, cor: 'preto'},
-    		{ produto: 'camiseta', preço: 15, cor: 'rosa' },
-    		{ produto: 'calção', preço: 20, cor: 'azul' },
-    	];
+funcSoma: nome da função
+(a, b): parâmetros que a função recebe
+{ ... }: operação que será executada
+obs: pode retirar o colchete e return pois a funçAo tem apenas uma declaraçao (statement)
 
-    	let precoMaiorQue50 = roupas.filter( (roupa) => roupa.preço > 50)
-    	console.log(precoMaiorQue50)
+ex:
 
-    	// [ { produto: 'calça', preço: 80, cor: 'azul'},
-    			 { produto: 'jaqueta', preço: 100, cor: 'preto'} ]
+	let roupas = [
+		{ produto: 'camisa', preço: 25. cor: 'amarela'},
+		{ produto: 'calça', preço: 80, cor: 'azul'},
+		{ produto: 'jaqueta', preço: 100, cor: 'preto'},
+		{ produto: 'camiseta', preço: 15, cor: 'rosa' },
+		{ produto: 'calção', preço: 20, cor: 'azul' },
+		];
+
+		let precoMaiorQue50 = roupas.filter( (roupa) => roupa.preço > 50)
+		console.log(precoMaiorQue50)
+
+	// [ { produto: 'calça', preço: 80, cor: 'azul'},
+			 { produto: 'jaqueta', preço: 100, cor: 'preto'} ]
 
 # ASYNC E AWAIT
 
@@ -776,7 +781,7 @@ Pode-se pensar que: transformar um objeto em número é, essencialmente, transfo
 {value0f(){return 3;}} 3
 
 _4._ ToBoolean
-
+ 
 Sempre que você precisar algo que não é boolean em um lugar que necessita de boolean, essa operação ocorrerá.
 Essa operação é menos algorítmica e mais "lógica". "Isso deve ser false ou true?"
 
@@ -1181,47 +1186,6 @@ um escopo encapsulado dentro da mesma. então se eu atribuir valor anan uma vari
 escopo global dentro da função, quando sair para fora da função essa minha variável ainda
 possuirá seu valor original
 
-`Closure (fecho/encerramento):`
-
-"Closure é quando uma função "lembra" de uma variável que está fora de deu escopo, mesmo
-que essa função seja passada para outro lugar, como um parâmetro por ex (isso resgata a
-ideia de Variável de Primeira Classe)."
-
-ex:
-
-	function makeSizer(size) {
-	return function() {
-		var resultado = size + 'px';
-		return resultado};
-		};
-
-	var size6 = makeSizer(6)
-	var size12 = makeSizer(12)
-	var size15 = makeSizer(15)
-	console.log(size12); 			   // '12px'
-
-Observações importantes:
-
-Na linha 448, size12 não guarda o return de resultado.
-Ela guarda a função anônima criada dentro de makeSizer "function()", com o parâmetro passado (6).
-Na linha 451, é chamada a função recém criada size12. Esse chamado retorna o retorno de function(6).
-
-Pensando num caso prático, poderia ter 3 botões de definição de tamanho de fonte de texto, para
-6px, 12px e 15px. Este botão teria um evento. Um evento pede uma função.
-A partir dessa ideia, poderia fazer 3 funções a partir da nossa makeSizer, como se ela fosse uma
-"fábrica de funções", tendo então:
-
-	var size12 = makeSizer(12);
-	var size14 = makeSizer(14);
-	var size16 = makeSizer(16);
-
-Agora temos 3 diferentes funções, que podemos retornar para 3 diferentes eventos, tendo 3 diferentes
-botões:
-
-	document.getElementById('size-12').onclick = size12;
-	document.getElementById('size-14').onclick = size14;
-	document.getElementById('size-16').onclick = size16;
-
 # ADVANCED SCOPE
 
 `Lexical scope:`
@@ -1389,83 +1353,407 @@ function sayHi() {
 	console.log('hi')
 }
 
+# CLOSURE
+
+`Closure (fecho/encerramento):`
+
+"Closure é quando uma função "lembra" de uma variável que está fora de deu escopo, mesmo que essa função seja passada para outro lugar, como um parâmetro, por exemplo. (isso resgata a ideia de Variável de Primeira Classe)."
+Essa "lembrança" se trata de uma hidden property [[ scope ]], a qual trás o contexto em que a função foi invocada. este "contexto" é chamado de PLSRD (persistent lexical scope reference data) ou COVE (Closed over variable environment) (variable environment -> memory) ou Closure. Informalmente, backpack.
+
+ex: 
+
+	function createFunction(array) {
+					let i = 0
+					function inner(){
+									const element = array[i];
+									i++;
+									return element;
+					}
+					return inner
+	}
+	const returnNextElement = createFunction([4,5,6])
+	const firstInvoke = returnNextElement()
+	const secondInvoke = returnNextElement()
+	console.log(firstInvoke)
+	console.log(secondInvoke)
+
+A função returnNextElement é retornado como resultado de createFunction(). Ao ser retornada. além da definição da própria função, é retornada a Closure/backpack trazendo a informação de let i = 0. Por isso que, quando chamamos a função, ela é faz a operação i++ mantendo em sua memória qual o atual valor de i.
+Por ter tal comportamento (dar, um a um, elementos da minha coleção, conforme a função é chamada), a função é uma Iterator Function.
+
+another ex:
+
+	function makeSizer(size) {
+	return function() {
+		var resultado = size + 'px';
+		return resultado;
+		}
+	};
+
+	var size6 = makeSizer(6)
+	var size12 = makeSizer(12)
+	var size15 = makeSizer(15)
+	console.log(size12); 			   // '12px'
+
+Explicando o exemplo:
+
+size12 não guarda o valor de 'resultado', que é retornado em makeSizer().
+Ela guarda a função anônima criada dentro de makeSizer "function()", com o parâmetro passado (6).
+Quando é chamada a função recém-criada size12, esse chamado retorna o retorno de function(6).
+
+Pensando num caso prático, poderia ter 3 botões de definição de tamanho de fonte de texto, para
+6px, 12px e 15px. Este botão teria um evento. Um evento pede uma função.
+A partir dessa ideia, poderia fazer 3 funções a partir da nossa makeSizer, como se ela fosse uma
+"fábrica de funções", tendo então:
+
+	var size12 = makeSizer(12);
+	var size14 = makeSizer(14);
+	var size16 = makeSizer(16);
+
+Agora temos 3 diferentes funções, que podemos retornar para 3 diferentes eventos, tendo 3 diferentes botões:
+
+	document.getElementById('size-12').onclick = size12;
+	document.getElementById('size-14').onclick = size14;
+	document.getElementById('size-16').onclick = size16;
+
+_obs: Closure don't close over values. It closes over variables._
+
+ex.:
+
+	for (var i = 1; i <= 3; i++) {
+		setTimeout(function() {
+			console.log(`i: ${i}`);
+		}, i * 1000);
+	}
+	// i : 4
+	// i : 4
+	// i : 4
+  // the variable keeps being "reminded" and reassigned.
+
+`Module Pattern`
+
+First, showing something that IS NOT a Module pattern:
+
+	var workshop = {
+		teacher: "Kyle",
+		ask(question) {
+			console.log(this.teacher, question);
+		},
+	};
+	workshop.ask("Is this a module?");
+	// Kyle Is this a module?
+
+This is a _Namespace pattern_, not a module.
+
+_Module pattern is based on encapsulation_ (the idea of manipulating data and behavior visibility/access).
+
+The state (data) of a module is held by its methods via closure.
+
+_Principle of least exposure privilege_
+
+ex: 
+ 
+	var calculator = (function Module(pow) {
+		var publicAPI = { powTwo, }; 
+		// here we can define what exactly is exposed (the powTwo func.)
+		return publicAPI;
+
+		function powTwo(numberToPow) {
+			return Math.pow(numberToPow,pow);
+		}
+	})(2) // this param "2" is the "pow" used to construct the Module
+
+	console.log(calculator.powTwo(7)) 
+	// this param "7" is what the user tells us to apply in powTwo()
+	// note that's possible to access calculator.powTwo, but is 
+	//  not possible to access calculator.pow. "pow" is hidden.
+
+Another good example of usage is the solution './Deep JS Foundation/Module ex./solution.js'
+
+# OBJECTS
+
+`This`
+
+A palavra-chave "this" faz com que o contexto de uma função seja dinâmico, determinado pela forma como é feita o chamado da função, e não pela forma como foi criada. Diferentemente do visto em Closures, em que o escopo é estático. _This = escopo dinâmico._
+
+*IMPORTANTE: a palavra-chave "this." NÃO SIGNIFICA NADA até que seja feito o chamado. É no chamado que ficará definido!*
+
+Existem _4 regras_ que ditam como funciona.
+
+_1. Implicit binding rule_
+
+ex:
+
+	function ask(question) {
+		console.log(this.teacher, question);
+	};
+	var workshop1 = {
+		teacher: "Kyle",
+		ask: ask,
+	};
+	var workshop2 = {
+		teacher: "Suzy",
+		ask: ask,
+	}
+	workshop1.ask("I have a question"); // Kyle I have a question
+	workshop2.ask("I have a question"); // Suzy I have a question
 
 
-# THIS & PROTOTYPES:
+workshop1.ask diz: "chame ask() com "this" apontando para o objeto "workshop1""
+workshop2.ask diz: "chame ask() com "this" apontando para o objeto "workshop2""
+Até que a função seja chamada, ".this" aponta para lugar nenhum e não tem referencial de onde buscar "teacher" que será usado.
 
-    This:
+_2. Explicit binding rule_
 
-    	A palavra-chave "this" faz com que o contexto de uma função seja dinâmico, determinado
-    	pela forma como é feita o chamado da função, e não pela forma como foi criada. Diferen-
-    	temente do visto em Closures, em que o escopo é estático.
-    	This = escopo dinâmico.
+Utilizando _.call_ Podemos passar o objeto como o primeiro parâmetro da função chamada, _explicitando o objeto_ para o qual estamos apontando
 
-    	IMPORTANTE: a palavra-chave "this." NÃO SIGNIFICA NADA até que seja feito o chamado.
-    	É no chamado que ficará definido!!!
+ex:
 
-    	Existem 4 regras que ditam como funciona (aqui são abordadas apenas 2).
+	function ask(question) {
+	console.log(this.teacher, question);
+	};
+	var workshop1 = {
+		teacher: "Kyle",
+		ask: ask,
+	};
+	var workshop2 = {
+		teacher: "Suzy",
+		ask: ask,
+	}
+	ask.call(workshop1, "I have a question"); // Kyle I have a question
+	ask.call(workshop2, "I have a question"); // Suzy I have a question
 
-    	1. Implicit binding rule. ex:
+_3. The `new` keyword_
 
-    		var workshop = {
-    			teacher: Henrique,
-    			ask(question) {
-    				console.log(this.teacher, question)
-    			}
-    		}
-    		workshop.ask("Hello!")
+*Ao contrário do senso comum, não está relacionado com construtores de classe."new" é a terceira forma de se chamar uma função, com this. apontando para um novo objeto vazio.*
 
-    		Não importa que "ask" esteja dentro do objeto "workshop". "this" tem seu significado
-    		apenas quando o método é chamado. Nesse caso, na linha 492, ao realizar workshop.ask
-    		o que acontece é que, implicitamente, "workshop" é atribuído à palavra-chave "this".
-    		Somente a partir desse momento o "this" que está dentro do console.log passa a apontar
-    		para workshop na linha 486 e sabe onde buscar "teacher".
+O que "new" SEMPRE faz ao ser utilizado para chamar uma função:
 
-    	2. Explicit binding rule. ex:
+	1. Cria um novo objeto vazio.
+	2. Conecta este novo objeto a outro objeto
+	3. Chama a função com this. apontando para o novo objeto.
+	4. Se a função não retornar um objeto, ela retorna "this".
 
-    		function ask(question) {
-    			console.log(this.teacher, question);
-    		}
-    		function otherClass() {
-    			var myContext = {
-    				teacher: "Henrique"
-    			};
-    			ask.call(myContext, "hello!") // Henrique hello!
-    		}
-    		otherClass();
+_4. Default binding_
 
-    Prototype:
+Acontece quando nenhuma das outras 3 regras são aplicáveis
+Esteja atento a erros:
 
-    Prototype é um objeto a qual instâncias estarão ligadas/delegadas.
+	var teacher = "Kyle";
 
-    ex:
+	function ask(question) {
+		console.log(this.teacher, question);
+	}
+	function askAgain(question) {
+		"use strict";
+		console.log(this.teacher, question);
+	}
 
-    	function Workshop(teacher) {
-    		this.teacher = teacher;
-    	}
-    	Workshop.prototype.ask = function(question) {
-    		console.log(this.teacher, question);
-    	};
+	ask("Is it real?")
+	// Kyle Is it real?
 
-    	var deepJS = new Workshop("Kyle");
-    	var reactJS = new Workshop("Suzy");
+	askAgain("Is it real")
+	// TypeError  >> Strict mode don't let you reference to an undefined object.
 
-    	deepJS.ask("Is 'prototype' a class?");
-    	//  Kyle Is 'prototype' a class?
+	Se estivesse em Sloppy Mode retornaria: "undefined Is it real?"
 
-    	reactJS.ask("Isn't 'prototype' ugly?");
-    	// Suzy Isn't 'prototype' ugly?
+`Cases with more than 1 rule (binding precedence)`
 
-    	Analisando:
-    		532: O objeto criado é ligado a workshop.prototype (528).
-    		528: Workshop.prototype possui um método ask(), e é por isso que:
-    		535: Mesmo o objeto deepJS não possuindo um método ask(), é possível chamá-lo com deepJS.ask(),
-    			pois deepJS está ligado, como um protótipo, à workshop.prototype. Com isso, quando chamamos o
-    			método, na verdade, estamos delegando esse chamado um level acima da prototype chain, de deepJS
-    			para workshop.prototype.
+Nesses casos, seguimos essa ordem de "questionamentos":
 
-    	Observações:
-    		- deepJS é um objeto
-    		- deepJS é uma instância de Workshop
-    		- deepJS é um objeto que contém o parâmetro "teacher"
+_1._ Is the function called by _new_?
+ If so, the newly created object will be the this.
+_2._ Is the function called by _call()_ or _apply()_?
+ If so, the specified context object will be used (this.).
+ Note: _bind()_ effectively uses _apply()_
+_3._ Is the function called on a context object (ex: workshop1.ask)?
+	If so, the context object will be used (this.).
+_4._ DEFAULT: Global object except strict mode
+
+`Arrow Functions & Lexical this`
+
+Arrow functions doesn't define a "this." keyword. So, in this example:
+
+var workshop = { 
+	teacher: "Kyle",
+	ask(question) {
+		setTimeOut(() => {
+			console.log(this.teacher, question);
+		}, 100);
+	},
+}
+workshop.ask("Is this lexical 'this'?);
+// Kyle is this lexical 'this'?
+
+Once arrow functions doesn't have a 'this.' keyword at all, it resolves lexically, going up and looking for a function that defines a 'this.' keyword. In this case, the function ask().
+
+_Same happens when a function is passed as a callback, the method reference needs to be hardbound_
+
+ex: 
+
+ getStudentFromId() {
+	return ...
+ }
+ printRecord(recordIds) {
+  var records = recordIds.map(this._getStudentFromId.bind(this)_)
+	return ...
+ }
+
+# PROTOTYPE
+
+`prototype behavior`
+
+Here we'll explore what happens in the underneaths of classes.
+Take the following code of example + the prototype print inside the Deep JS folder:
+
+	function Workshop(teacher) {
+		this.teacher = teacher;
+	}
+	Workshop.prototype.ask = function(question) {
+		console.log(this.teacher, question);
+	}
+	var deepJS = new Workshop("Kyle")
+	var reactJS = new Workshop("Suzy")
+
+	deepJS.ask("Is 'prototype' a class?");
+	//Kyle Is 'prototype' a class?
+
+	reactJS.ask("Is 'prototype' a class?")
+	//Suzy Is 'prototype' a class?
+
+Analysing:
+
+1632: The deepJS Object is created and linked to workshop.prototype
+1629: Workshop.prototype has an ask() method, ans that's why:
+1635: Even if deepJS doesn't have an ask() method, it's possible to call it with deepJS.ask(), becausa deepJS is linked to workshop.prototype. So, when we call the method and we don't find it inside of our "this." object (deepJS), it's `delegated` one level up the prototype chain, from deepJS to workshop.prototype
+
+Obs:
+	- deepJS is an object.
+	- deepJS is an instance of workshop.
+	- deepJS is an object that contains the "teacher" parameter.
+
+`Classical vs Prototypal inheritance`
+
+The classical inheritance works making a copy of the parent to the child new classes/objects.
+But it actually work this way for languages like java and C++.
+The so called "class inheritance", _in JS, actually is a "prototype inheritance"!_
+
+_Class inheritance_: makes a copy from the parent to the isntances and childs that extends it.
+
+_Prototype inhetitance_: from a 'parent' object.prototype, when created new objects they aren't copies. they are _linked_ to the 'parent'!
+
+So... `The Class System is Javascript actually is a Prototype System, working by a "behavior delegation" system.`
+
+What happened is that the JS designers tried to put a sugar coat in the Prototype system and call it a class system. 
+
+_That's why classes in JS work differently than Java and C++_, for example.
+
+`OLOO Pattern (Objects Linked to Other Objects)`
+
+Based on only using Objects. No classes, no "new" keywords. Symple as that.
+
+_Class pattern_:
+
+	class Workshop {
+		constructor(teacher) {
+			this.teacher = teacher;
+		}
+		ask(question) {
+			console.log(this.teacher, question);
+		}
+	}
+
+	class AnotherWorkshop extends Workshop {
+		speakUp(msg) {
+			this.ask(msg);
+		}
+	}
+
+	var JSRecentParts = new AnotherWorkshop("Kyle");
+
+	JSRecentParts.speakUp("Are classes getting better?");
+	// Kyle Are classes getting better? 
+
+_OLOO Pattern_:
+
+	var Workshop = {
+		setTeacher(teacher) {
+			this.teacher = teacher;
+		},
+		ask(question) {
+			console.log(this.teacher, question);
+		}
+	};
+  var AnotherWorkshop = Object.assign( 
+    _Object.create_(Workshop),
+		{
+			speakUp(msg) {
+				this.ask(msg.toUpperCase();)
+			}
+		}
+	);
+
+	var JSRecentParts = _Object.create_(AnotherWorkshop);
+
+	JSRecentParts.setTeacher("Kyle");
+	JSRecentParts.speakUp("But isn't this cleaner?");
+	// Kyle BUT ISN'T THIS CLEANER?
+
+Note that there's no need of new, prototype, constructors, classes, extends, etc. Just objects.
+Over the this keyword, the objects act as they share a call context, linked through the prototype chain, calling each others methods when necessary.
+
+Better example of that:
+
+ var AuthController = {
+	authenticate() {
+		server.authenticate(
+			[ this.username, this.password ],
+			this.hardleResponse.bind(this)
+		);
+	},
+	handleResponse(resp) {
+		if (!resp.ok) this.displayError(resp.msg);
+	}
+ };
+
+ var LoginFormController = 
+  Object.assign(Object.create(AuthController), {
+		onSubmit() {
+			this.username = this.$username.val();
+			this.password = this.$password.val();
+			this.authenticate();
+		}
+		displayError(msg) {
+			alert(msg);
+		}
+	});
+
+# Promises:
+
+The promise object carries the result of an asynchronous operation.
+
+It has these properties
+
+  _value_: stores what the operation returned to the promise object as result.
+
+  _onFulfilled_: stores the function passed with the _then()_ method to be executed when a _value_ is returned, which is going to be it's argument.
+
+  _onRejection_: stores the function passed with the _catch()_ method (or as a second argument of the then() method) to be executed when an _error_ is returned, instead of the expected. 
+
+
+The _then()_ method
+
+  What it exactly is: Stores a function to run later, automatically, when the background task that came out of _fetch()_ call previously completes and the _value_ probably gets updated
+  Obs: When value is returned, the function don't immediately is invoked. It goes to the _microtask queue_ (not callback queue!).
+
+_Callback Queue vs Microtask Queue_
+
+  Goes to the microtask queue functions that are "registered" by the Web Browser (e.g. onFulfillment functions).
+  Goes to the callback queue functions that are "registered" by the JavaScript (e.g. setTimeout).
+	Microtasks have priority over callbacks to go to the call stack (where it gets executed).
+ 
+A promise is in one is these states:
+
+  _pending_: initial state, neither fulfilled nor rejected.
+  _fulfilled_: meaning that the operation was completed successfully.
+  _rejected_: meaning that the operation failed.
 

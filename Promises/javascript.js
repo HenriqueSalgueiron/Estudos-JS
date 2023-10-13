@@ -38,3 +38,7 @@ const p3 = new Promise ((resolve, reject) => {
 const allPromises = Promise.all([p1, p2, p3]).then((data) => {
   console.log(data)
 })
+
+setTimeout(() => {
+  
+}, timeout);
